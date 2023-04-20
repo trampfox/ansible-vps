@@ -1,0 +1,12 @@
+---
+- name: Update apt cache
+  become: true
+  ansible.builtin.package:
+    update_cache: yes
+
+- name: Install Go
+  become: true
+  ansible.builtin.package:
+    name:
+      - golang-go
+    state: present

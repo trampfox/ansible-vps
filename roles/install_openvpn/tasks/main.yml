@@ -1,0 +1,10 @@
+---
+- name: Install openvpn packages
+  ansible.builtin.package:
+    name: "{{ openvpn_packages }}"
+    state: present
+
+- name: Setup OpenVPN Server
+  ansible.builtin.include_tasks:
+    file: server.yml
+

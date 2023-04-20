@@ -1,0 +1,23 @@
+---
+- name: Create new admin account
+  become: true
+  user:
+    name: "{{ admin_user }}"
+    shell: /bin/bash
+    groups: sudo
+    append: yes
+
+- name: Copy SSH public key from GitHub to the authorized_keys file
+  become: true
+  authorized_key:
+    user: "{{ admin_user }}"
+    key: "{{ admin_ssh_pubkey }}"
+
+- name: Allow sudo group to have passwordless sudo
+  become: true
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^%sudo"
+    line: "%sudo ALL=(ALL) NOPASSWD:ALL"
+    validate: visudo -cf %s

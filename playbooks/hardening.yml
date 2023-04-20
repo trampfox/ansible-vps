@@ -1,0 +1,23 @@
+---
+- name: OS and SSH hardening
+  hosts: all
+  become: true
+  pre_tasks:
+     - name: Update repositories cache
+       ansible.builtin.package::
+          update_cache: yes
+  collections:
+     - devsec.hardening
+
+  roles:
+    - devsec.hardening.os_hardening
+    - devsec.hardening.ssh_hardening
+  
+  vars:
+    # ssh hardening vars
+    ssh_allow_users: 'ubuntu trampfox'
+
+    # os hardening vars
+    sysctl_overwrite:
+      # enable IPv4 traffic forwarding
+       net.ipv4.ip_forward: 1

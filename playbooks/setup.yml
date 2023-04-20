@@ -1,0 +1,17 @@
+---
+- name: Initialize user and install Docker and Go
+  hosts: all
+  become: true
+  pre_tasks:
+     - name: Update repositories cache
+       ansible.builtin.package:
+          update_cache: true
+
+  roles:
+     - initialize
+     - install_docker
+     - install_go
+  vars:
+   # user vars
+     admin_user: trampfox
+     admin_ssh_pubkey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCwPziZsWToF36WSDtA1g4CZ38F917Iqq0aHDdUEjalkYxtEI2eTwX+c9uwCe46VsA21bCNHdmCh+ZMaCWC7odcKOMWnyq0am478tCcVze0unKBkflafNn+TOG19JxcT1a3B5yrr6w6yPoIP8OiUNqlT4Z9YunuI5lUnezyBU/fpKVQAlbeywwrj7qn7hEzEy+ZD5PlkBd5UHvCKEVFVdRFbFnR2hfTp3si6hRMXdGmQo9jfpc3JveAiwOzpkJT15ALAO+HJkiva2tKAs2KcIUMcJnSVwAMg3gdSTVQUma5Wcv5ZjyFKJcNh6jVkw+YkPN8W9IIbibKlu5LWHdDIzXHyrqIKrYMWO2NaVlYcXW3OsFrz1tMaX/eypL+c58DBr5me56If/fcPBTExcxVijCk6dSewHYfrBgbdwwiHjT9OsJeAC4mHKoyqWkb4cKuSG7wq9Yy0iEviAL4+4/KpJDjsrPW+LNwiWP4CwITgfRTU7JYSdWfkzxvhMrGdRJch8QrM+FhjMIxu26KxFkqkv766cMpNch8ideTw8FkyUJZ41l/JHpaS0sImxJR+b09Zu4N/Wi4iwax9JOJTu7Y3EUhc6n4bScJyduzqt/pf3Dx1coRX/wLW6i9KBZWzWxx8Mqy0M2e2mm0iN+fsaE7RZ8RRLnPOP4GlJ46QN7uOob7ZQ== davide.monfrecola@schibsted.com"

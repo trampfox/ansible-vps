@@ -1,0 +1,35 @@
+---
+- name: Install OpenVPN server
+  hosts: all
+  become: true
+
+  roles:
+    - install_openvpn
+  vars:
+    openvpn_packages:
+      - openvpn
+      - easy-rsa
+
+    _openvpn_easyrsa_path:
+      default: /usr/share/easy-rsa/3
+      Debian: /usr/share/easy-rsa
+
+    openvpn_easyrsa_path: "{{ _openvpn_easyrsa_path[ansible_os_family] | default(_openvpn_easyrsa_path['default']) }}"
+
+    _openvpn_configuration_directory:
+      default: /etc/openvpn/server
+      Debian: /etc/openvpn
+
+    openvpn_configuration_directory: "{{ _openvpn_configuration_directory[ansible_os_family ~ '-' ~ ansible_distribution_major_version] | default(_openvpn_configuration_directory[ansible_os_family] | default(_openvpn_configuration_directory['default'] )) }}"
+
+    _openvpn_group:
+      default: nobody
+      Debian: nogroup
+
+    openvpn_group: "{{ _openvpn_group[ansible_os_family] | default(_openvpn_group['default']) }}"
+
+    _openvpn_service:
+      default: openvpn@server
+      Ubuntu: openvpn@server.service
+      
+    openvpn_service: "{{ _openvpn_service[ansible_os_family ~ '-' ~ ansible_distribution_major_version] | default(_openvpn_service[ansible_os_family] | default(_openvpn_service['default'] )) }}"
