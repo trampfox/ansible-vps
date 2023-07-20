@@ -1,0 +1,6 @@
+---
+- name: Download k3s {{ k3s_version }}
+  ansible.builtin.include_tasks: install.yml
+
+- name: Configure k3s
+  ansible.builtin.include_tasks: configure.yml

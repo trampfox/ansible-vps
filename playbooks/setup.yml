@@ -9,8 +9,8 @@
 
   roles:
      - initialize
-     - install_docker
-     - install_go
+     - docker
+     - go
   vars:
    # user vars
      admin_user: trampfox
